@@ -99,7 +99,7 @@ case "$echoice" in
 		rm -rf zImage
 		rm -rf dtb
                 cd $KERNEL_DIR
-		make clean && make mrproper
+		#make clean && make mrproper
 		echo "cleaned directory"
 		echo "Compiling Hyper Kernel Using SABERMOD-4.9 Toolchain"
 		break
@@ -116,7 +116,7 @@ case "$echoice" in
 		rm -rf zImage
 		rm -rf dtb
 		cd $KERNEL_DIR
-		make clean && make mrproper
+		#make clean && make mrproper
 		echo "cleaned directory"
 		echo "Compiling Hyper Kernel Using UBERTC-4.9 Toolchain"
 		break
