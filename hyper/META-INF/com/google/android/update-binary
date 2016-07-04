@@ -73,8 +73,6 @@ if [ "$(file_getprop /tmp/anykernel/anykernel.sh do.modules)" == 1 ]; then
   ui_print "Pushing modules...";
   ui_print " ";
   rm -rf /system/lib/modules;
-  rm -rf /system/vendor/lib/hw/power.msm8916.so;
-  rm -rf /system/vendor/lib64/hw/power.msm8916.so;
   mkdir /system/lib/modules;
   cp -f /tmp/anykernel/modules/* /system/lib/modules/;
   set_perm_recursive 0 0 0755 0644 /system/lib/modules;
