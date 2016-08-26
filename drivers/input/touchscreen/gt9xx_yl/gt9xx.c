@@ -673,12 +673,11 @@ static void goodix_ts_work_func(struct work_struct *work)
                 envp = down_wakeup;	//added by yewenliang for test
                 gesture_key = KEY_GESTURE_SLIDE_DOWN;
             }
-            //corrected by Shoaib Anwar aka Shoaib05 ;)
-	    else if ((doze_buf[2] == 0x63) && (support_gesture & TW_SUPPORT_M_SLIDE_WAKEUP))
+            else if ((doze_buf[2] == 0x63) && (support_gesture & TW_SUPPORT_C_SLIDE_WAKEUP))
             {
                 GTP_INFO("Slide(0x63) To Light up the screen!");
                 doze_status = DOZE_WAKEUP;
-                sprintf(wakeup_slide,"m");
+                sprintf(wakeup_slide,"c");
                 envp = c_wakeup;	//added by yewenliang for test
                 gesture_key = KEY_GESTURE_SLIDE_C;
             }
@@ -689,12 +688,11 @@ static void goodix_ts_work_func(struct work_struct *work)
                 sprintf(wakeup_slide,"e");
                 envp = e_wakeup;	//added by yewenliang for test
             }
-            //corrected by Shoaib Anwar aka Shoaib05 ;)
-            else if ((doze_buf[2] == 0x6D) && (support_gesture & TW_SUPPORT_C_SLIDE_WAKEUP))
+            else if ((doze_buf[2] == 0x6D) && (support_gesture & TW_SUPPORT_M_SLIDE_WAKEUP))
             {
                 GTP_INFO("Slide(0x6D) To Light up the screen!");
                 doze_status = DOZE_WAKEUP;
-                sprintf(wakeup_slide,"c");
+                sprintf(wakeup_slide,"m");
                 envp = m_wakeup;	//added by yewenliang for test
             }
             else if ((doze_buf[2] == 0x6F) && (support_gesture & TW_SUPPORT_O_SLIDE_WAKEUP))
