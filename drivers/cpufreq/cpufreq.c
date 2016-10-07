@@ -39,7 +39,7 @@ static struct cpufreq_driver *cpufreq_driver;
 static DEFINE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_data);
 static DEFINE_PER_CPU(struct cpufreq_policy *, cpufreq_cpu_data_fallback);
 static DEFINE_RWLOCK(cpufreq_driver_lock);
-static DEFINE_MUTEX(cpufreq_governor_lock);
+DEFINE_MUTEX(cpufreq_governor_lock);
 static LIST_HEAD(cpufreq_policy_list);
 
 #ifdef CONFIG_HOTPLUG_CPU
@@ -513,6 +513,9 @@ static ssize_t store_scaling_governor(struct cpufreq_policy *policy,
 	if (cpufreq_parse_governor(str_governor, &new_policy.policy,
 						&new_policy.governor))
 		return -EINVAL;
+
+	new_policy.min = new_policy.user_policy.min;
+	new_policy.max = new_policy.user_policy.max;
 
 	ret = cpufreq_set_policy(policy, &new_policy);
 
@@ -1817,6 +1820,22 @@ EXPORT_SYMBOL_GPL(cpufreq_driver_target);
 /*
  * when "event" is CPUFREQ_GOV_LIMITS
  */
+
+int __cpufreq_driver_getavg(struct cpufreq_policy *policy, unsigned int cpu)
+{
+ int ret = 0;
+
+ policy = cpufreq_cpu_get(policy->cpu);
+ if (!policy)
+ return -EINVAL;
+
+ if (cpu_online(cpu) && cpufreq_driver->getavg)
+ ret = cpufreq_driver->getavg(policy, cpu);
+
+ cpufreq_cpu_put(policy);
+ return ret;
+}
+EXPORT_SYMBOL_GPL(__cpufreq_driver_getavg);
 
 static int __cpufreq_governor(struct cpufreq_policy *policy,
 					unsigned int event)
