@@ -23,9 +23,6 @@ Hyper_VER="$BASE_VER$VER$TC"
 # Vars
 export ARCH=arm64
 export SUBARCH=arm64
-export KBUILD_BUILD_USER=Karthick111
-export KBUILD_BUILD_HOST=server1
-export LOCALVERSION="-Hyper™-v1"
 
 # Paths
 KERNEL_DIR=`pwd`
